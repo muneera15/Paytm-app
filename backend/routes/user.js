@@ -1,5 +1,7 @@
 const express = require("express");
 
+const jwt = require("jsonwebtoken")
+
 const {User} = require("../db")
 
 const zod = require("zod");
@@ -18,7 +20,7 @@ const signupSchema = zod.object({
     const body = req.body;
     const {success} = signupSchema.safeParse(req.body);
     if (! success){
-      return res.json({
+      return res.status(411).json({
          message : "Email already exists / Incorrect inputs"
       })
     }
