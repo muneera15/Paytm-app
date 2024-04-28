@@ -5,7 +5,7 @@ export const authMiddleWare = (req,res,next) =>{
     const authentication = req.headers.authentication;
     if (! authentication || !authentication.startsWith("Bearer ")){
         return res.status(403).json({
-            message : "invalid user"
+            message : "Invalid user"
         })
     }
 
@@ -13,11 +13,17 @@ export const authMiddleWare = (req,res,next) =>{
     try{
         const decoded = jwt.verify({
         token
-    },JWT_SECRET)
-    req.userId = decoded.userId
-    next();
-}
-catch(err){
+    },JWT_SECRET);
+    if(decoded.userId){
+        req.userId = decoded.userId
+        next();
+    }
+    else{
+        return res.status(403).json({
+            message : "Invalid user"
+        })
+    }
+} catch(err){
     return res.status(403).json({
         message : "Invalid user"
     })
