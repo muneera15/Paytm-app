@@ -59,7 +59,7 @@ const signupSchema = zod.object({
   password : zod.string()
  })
 
- router.post("\signin", async (req,res)=>{
+ router.post("/signin", async (req,res,next)=>{
   const body = req.body;
   const obj = singinSchema.safeParse(body)
   if(! obj.success){
@@ -88,7 +88,7 @@ const updateSchema = zod.object({
   firstName : zod.string().optional(),
   lastName : zod.string().optional()
 })
-router.post("update",authMiddleWare,async (req,res)=>{
+router.post("/update",authMiddleWare,async (req,res)=>{
 const body = req.body;
 const obj = updateSchema.safeParse(body);
 
@@ -109,3 +109,27 @@ res.status(411).json({
 message : "not updated"
 })
  })
+
+ router.get("/bulk",async (req,res)=>{
+  const filter = req.query.filter || "";
+
+  const users = await User.find({
+    $or : [{
+      "firstName" : {
+        "$regex" : filter
+      },
+      "lastName" : {
+        "$regex" : filter
+      }
+    }]
+  })
+  res.json({
+    user : users.map(user=>({
+      userName : user.userName,
+      firstName : user.firstName,
+      lastName : user.lastName,
+      userId : user._id
+    }))
+  })
+  })
+
