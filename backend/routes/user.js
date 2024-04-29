@@ -2,7 +2,7 @@ const express = require("express");
 
 const jwt = require("jsonwebtoken")
 
-const {User} = require("../db")
+const {User, Account} = require("../db")
 
 const zod = require("zod");
 
@@ -41,10 +41,14 @@ const signupSchema = zod.object({
       firstName : body.firstName,
       lastName : body.lastName
     });
-    res.json ({
-      message : "User created successfully"
-    })
+
     const userId = user._id;
+    
+    await Account.create({
+      userId,
+      balance : 1 + Math.random() * 1000
+    })
+
     const token = jwt.sign({
       userId
     },JWT_SECRET);
@@ -74,11 +78,11 @@ const signupSchema = zod.object({
 
   if(user){
   const token = jwt.sign({userId : user._id},JWT_SECRET);
-  return res.json({
+  res.json({
     token : token
   })
   }
-  res.status(411).json({
+   return res.status(411).json({
     message : "Error while logging in"
   })
  })
@@ -101,11 +105,11 @@ const user = User.updateOne(body,{
 userId : req.userId
 })
 if(user){
-  return res.json({
+  res.json({
     msg : "Updated successfully"
   })
 }
-res.status(411).json({
+ return res.status(411).json({
 message : "not updated"
 })
  })
@@ -128,7 +132,7 @@ message : "not updated"
       userName : user.userName,
       firstName : user.firstName,
       lastName : user.lastName,
-      userId : user._id
+      _id : user._id
     }))
   })
   })
