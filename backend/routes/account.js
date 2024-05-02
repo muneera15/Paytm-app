@@ -1,7 +1,7 @@
 const express = require("express");
-const {authMiddleware} = require ("../middleware");
-const {default : mongoose} = require("mongoose");
-const {Account} = require("../db");
+const { authMiddleware } = require("../middleware");
+const { default : mongoose } = require("mongoose");
+const { Account } = require ("../db");
 
 const router = express.Router();
 
@@ -46,3 +46,6 @@ router.post("/transfer",authMiddleware,async(req,res)=>{
         message : "Transaction successfull"
     })
 })
+
+
+module.exports = router;

@@ -2,13 +2,15 @@ const express = require("express");
 
 const cors = require("cors");
 
+const mainRouter =require("./routes/index");
+
+const database = require("./db");
+
 const app = express();
 
 app.use(cors());
 
 app.use(express.json());
-
-const mainRouter = require("./routes/index");
 
 app.use("/api/v1", mainRouter)
 

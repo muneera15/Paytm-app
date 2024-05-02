@@ -1,15 +1,15 @@
-const {JWT_SECRET} = require("./config");
+const { JWT_SECRET } = require("./config");
 const jwt = require("jsonwebtoken");
 
-export const authMiddleWare = (req,res,next) =>{
-    const authentication = req.headers.authentication;
-    if (! authentication || !authentication.startsWith("Bearer ")){
+const authMiddleWare = (req,res,next) =>{
+    const authorization = req.headers.authorization;
+    if (! authorization || !authorization.startsWith("Bearer ")){
         return res.status(403).json({
             message : "Invalid user"
         })
     }
 
-    const token = authentication.split('')[1]
+    const token = authorization.split(' ')[1];
     try{
         const decoded = jwt.verify({
         token
@@ -29,3 +29,6 @@ export const authMiddleWare = (req,res,next) =>{
     })
 }
 }
+module.exports = {
+    authMiddleWare
+};

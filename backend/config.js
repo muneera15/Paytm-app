@@ -1,1 +1,4 @@
-export const JWT_SECRET = "paytmsecret"
+const JWT_SECRET = "paytmsecret";
+module.exports = {
+    JWT_SECRET
+};

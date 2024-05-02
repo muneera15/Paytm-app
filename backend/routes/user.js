@@ -1,17 +1,16 @@
 const express = require("express");
 
+const router = express.Router();
+
 const jwt = require("jsonwebtoken")
 
-const {User, Account} = require("../db")
+const { User, Account } =require("../db");
 
 const zod = require("zod");
 
-const {JWT_SECRET} = require("../config")
+const { JWT_SECRET } = require("../config");
 
-const {authMiddleWare} = require("../middleware")
-
-export const router = express.Router;
-
+const { authMiddleWare } = require ("../middleware");
 
 const signupSchema = zod.object({
     userName : zod.string().email(),
@@ -43,7 +42,7 @@ const signupSchema = zod.object({
     });
 
     const userId = user._id;
-    
+
     await Account.create({
       userId,
       balance : 1 + Math.random() * 1000
@@ -136,4 +135,5 @@ message : "not updated"
     }))
   })
   })
+  module.exports = router;
 

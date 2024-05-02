@@ -1,5 +1,3 @@
-import { unique } from "next/dist/build/utils";
-
 const mongoose = require("mongoose");
 
 mongoose.connect("mongodb+srv://muneerashaik03:muneera03@cluster0.ckq1avn.mongodb.net/");
@@ -11,8 +9,7 @@ const userSchema = mongoose.Schema({
       unique : true,
       trim : true,
       lowercase : true,
-      minLength : 3,
-      maxLength : 30
+      minLength : 3
     },
     password : {
       type : String,
@@ -43,5 +40,10 @@ const accountSchema = mongoose.Schema({
     required : true
   }
 });
- export const Account = mongoose.model("Account",accountSchema);
-export const User = mongoose.model("User",userSchema);
+const Account = mongoose.model("Account",accountSchema);
+const User = mongoose.model("User",userSchema);
+
+module.exports = {
+  User,
+  Account
+};
