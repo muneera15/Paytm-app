@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 
-mongoose.connect("mongodb+srv://muneerashaik03:muneera03@cluster0.ckq1avn.mongodb.net/");
+mongoose.connect("mongodb+srv://muneerashaik03:muneera03@cluster0.ckq1avn.mongodb.net/paytm");
 
-const userSchema = mongoose.Schema({
+const userSchema = new mongoose.Schema({
     userName : {
       type : String,
       required : true,
@@ -29,7 +29,7 @@ const userSchema = mongoose.Schema({
      maxLength : 50
     }
 })
-const accountSchema = mongoose.Schema({
+const accountSchema = new mongoose.Schema({
   userId :{
     type :  mongoose.Schema.ObjectId,
     ref : "User",

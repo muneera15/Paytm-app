@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "set DEBUG=express:* & node index.js"
   },
   "keywords": [],
   "author": "",
@@ -12,12 +13,10 @@
   "dependencies": {
     "@types/mongoose": "^5.11.97",
     "cors": "^2.8.5",
-    "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "json": "^11.0.0",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.3.2",
-    "node": "^22.0.0",
-    "zod": "^3.23.4"
+    "mongoose": "^8.3.3",
+    "zod": "^3.23.6"
   }
 }

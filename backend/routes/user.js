@@ -34,7 +34,7 @@ const signupSchema = zod.object({
          message : "Email already exists / Incorrect inputs"
       })
     }
-    const user = User.create({
+    const user = await User.create({
       userName : body.userName,
       password : body.password,
       firstName : body.firstName,
@@ -58,11 +58,11 @@ const signupSchema = zod.object({
 
  })
  const singinSchema = zod.object({
-  username : zod.string().email(),
+  userName : zod.string().email(),
   password : zod.string()
  })
 
- router.post("/signin", async (req,res,next)=>{
+ router.post("/signin", async (req,res)=>{
   const body = req.body;
   const obj = singinSchema.safeParse(body)
   if(! obj.success){
@@ -71,7 +71,7 @@ const signupSchema = zod.object({
     })
   }
   const user = await User.findOne({
-    username : body.userName,
+    userName : body.userName,
     password : body.password
   });
 
@@ -91,7 +91,7 @@ const updateSchema = zod.object({
   firstName : zod.string().optional(),
   lastName : zod.string().optional()
 })
-router.post("/update",authMiddleWare,async (req,res)=>{
+router.put("/update",authMiddleWare,async (req,res)=>{
 const body = req.body;
 const obj = updateSchema.safeParse(body);
 
@@ -120,7 +120,8 @@ message : "not updated"
     $or : [{
       "firstName" : {
         "$regex" : filter
-      },
+      }
+    },{
       "lastName" : {
         "$regex" : filter
       }
@@ -136,4 +137,3 @@ message : "not updated"
   })
   })
   module.exports = router;
-

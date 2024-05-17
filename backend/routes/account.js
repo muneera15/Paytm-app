@@ -1,24 +1,25 @@
 const express = require("express");
-const { authMiddleware } = require("../middleware");
+const { authMiddleWare } = require("../middleware");
 const { default : mongoose } = require("mongoose");
 const { Account } = require ("../db");
 
 const router = express.Router();
 
-router.get("/balance",authMiddleware, async (req,res)=>{
+router.get("/balance", authMiddleWare, async (req,res)=>{
     const account = await Account.findOne({
         userId : req.userId
     })
+    console.log(account);
     res.json({
         balance : account.balance
     })
 })
-router.post("/transfer",authMiddleware,async(req,res)=>{
-    const session = mongoose.startSession();
+router.post("/transfer",authMiddleWare,async(req,res)=>{
+    const session = await mongoose.startSession();
 
     session.startTransaction();
     const senderId = req.userId
-    const {amount,to} = req.body;
+    const { amount,to } = req.body;
     const account = await Account.findOne({
         userId : senderId
     }).session(session);
@@ -33,7 +34,7 @@ router.post("/transfer",authMiddleware,async(req,res)=>{
         userId : to
     }).session(session);
     if(!toAccount){
-        (await session).abortTransaction();
+        await session.abortTransaction();
         return res.status(400).json({
             message : "Invalid account"
         })
