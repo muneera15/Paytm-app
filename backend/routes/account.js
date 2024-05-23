@@ -16,7 +16,7 @@ router.get("/balance", authMiddleWare, async (req,res)=>{
 })
 router.post("/transfer",authMiddleWare,async(req,res)=>{
     const session = await mongoose.startSession();
-
+console.log(" hello")
     session.startTransaction();
     const senderId = req.userId
     const { amount,to } = req.body;
@@ -33,7 +33,9 @@ router.post("/transfer",authMiddleWare,async(req,res)=>{
     const toAccount = await Account.findOne({
         userId : to
     }).session(session);
+    console.log("hai")
     if(!toAccount){
+        console.log(toAccount,"heh")
         await session.abortTransaction();
         return res.status(400).json({
             message : "Invalid account"

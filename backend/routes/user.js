@@ -91,7 +91,7 @@ const updateSchema = zod.object({
   firstName : zod.string().optional(),
   lastName : zod.string().optional()
 })
-router.put("/update",authMiddleWare,async (req,res)=>{
+router.put("/",authMiddleWare,async (req,res)=>{
 const body = req.body;
 const obj = updateSchema.safeParse(body);
 
