@@ -1,5 +1,9 @@
 # PayTM App
 
+## Live Preview
+
+https://paytm-react.onrender.com
+
 ## Overview
 
 This project is a simplified version of the PayTM application, built with a Node.js backend and React frontend. It provides basic functionalities such as user authentication, balance checking, and money transfers between users.
