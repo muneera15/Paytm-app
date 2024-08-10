@@ -7,7 +7,7 @@ export const Dashboard=()=>{
     const [balance,setBalance]=useState(0);
     const fetch = async()=>{
         try{
-            await axios.get(`${import.meta.env,VITE_SERVER_URL}/api/v1/account/balance`,{
+            await axios.get(`${import.meta.env.VITE_SERVER_URL}/api/v1/account/balance`,{
                 headers:{
                     Authorization : "Bearer " + localStorage.getItem("token")
                 }

@@ -49,7 +49,7 @@ export const SendMoney = () => {
                     />
                     </div>
                     <button onClick={() => {
-                        axios.post(`${import.meta.env,VITE_SERVER_URL}/api/v1/account/transfer`, {
+                        axios.post(`${import.meta.env.VITE_SERVER_URL}/api/v1/account/transfer`, {
                             to: id,
                             amount
                         }, {

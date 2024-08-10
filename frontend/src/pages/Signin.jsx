@@ -27,7 +27,7 @@ export const Signin = () => {
         <div className="pt-4">
           <Button onClick={async () => {
             try{
-        const response = await axios.post(`${import.meta.env,VITE_SERVER_URL}/api/v1/user/signin`,{
+        const response = await axios.post(`${import.meta.env.VITE_SERVER_URL}/api/v1/user/signin`,{
             userName,
             password
         })
