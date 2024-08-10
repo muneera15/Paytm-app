@@ -45,7 +45,7 @@ const signupSchema = zod.object({
 
     await Account.create({
       userId,
-      balance : 1 + Math.random() * 1000
+      balance : 1 + Math.floor(Math.random() * 1000)
     })
 
     const token = jwt.sign({
@@ -118,7 +118,6 @@ message : "not updated"
 
  router.get("/bulk",async (req,res)=>{
   const filter = req.query.filter || "";
-  // const regex = new RegExp(filter, 'i');
   const users = await User.find(
     { "$or": [ { "firstName": { "$regex": filter, "$options": "i" } }, { "lastName": { "$regex": filter, "$options": "i" } } ] })
   res.json({
