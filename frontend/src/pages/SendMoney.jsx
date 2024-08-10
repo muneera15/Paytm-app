@@ -49,7 +49,7 @@ export const SendMoney = () => {
                     />
                     </div>
                     <button onClick={() => {
-                        axios.post("http://localhost:3000/api/v1/account/transfer", {
+                        axios.post(`${import.meta.env,VITE_SERVER_URL}/api/v1/account/transfer`, {
                             to: id,
                             amount
                         }, {
@@ -67,9 +67,6 @@ export const SendMoney = () => {
                 </div>
                 </div>
         </div>
-        {/* <a onClick={
-                        navigate('/dashboard')
-                    }>Back to dashboard</a> */}
       </div>
     </div>
 }
