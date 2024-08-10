@@ -33,6 +33,7 @@ export const Signin = () => {
         })
         if (response.data && response.data.token) {
           localStorage.setItem("token", response.data.token);
+          localStorage.setItem("user", JSON.stringify(response.data.user));
           navigate("/dashboard");
         } else {
           console.error("Token not found in response", response.data);

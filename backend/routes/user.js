@@ -77,8 +77,11 @@ const signupSchema = zod.object({
 
   if(user){
   const token = jwt.sign({userId : user._id},JWT_SECRET);
-  res.json({
-    token : token
+  return res.json({
+    token : token,
+    user : {
+      firstName : user.firstName
+    }
   })
   }
    return res.status(411).json({
@@ -115,18 +118,9 @@ message : "not updated"
 
  router.get("/bulk",async (req,res)=>{
   const filter = req.query.filter || "";
-
-  const users = await User.find({
-    $or : [{
-      "firstName" : {
-        "$regex" : filter
-      }
-    },{
-      "lastName" : {
-        "$regex" : filter
-      }
-    }]
-  })
+  // const regex = new RegExp(filter, 'i');
+  const users = await User.find(
+    { "$or": [ { "firstName": { "$regex": filter, "$options": "i" } }, { "lastName": { "$regex": filter, "$options": "i" } } ] })
   res.json({
     user : users.map(user=>({
       userName : user.userName,

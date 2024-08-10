@@ -27,7 +27,7 @@ export const Users = () => {
         <div className="my-2">
             <input onChange={(e) => {
                 setFilter(e.target.value)
-            }} type="text" placeholder="Search users..." className="w-full px-2 py-1 border rounded border-slate-200"></input>
+            }} type="text" placeholder="Search users..." className="w-full px-2 py-1 border border-cyan-500 rounded border-slate-200"></input>
         </div>
         <div>
             {users.map(user => <User user={user} />)}
@@ -40,12 +40,12 @@ function User({user}) {
 
     return <div className="flex justify-between">
         <div className="flex">
-            <div className="rounded-full h-12 w-12 bg-cyan-500 flex justify-center mt-1 mr-2">
+            <div className="rounded-full h-12 w-12 bg-cyan-400 flex justify-center mt-1 mr-2">
                 <div className="flex flex-col font-bold  justify-center text-white h-full text-xl">
                     {user.firstName[0]}
                 </div>
             </div>
-            <div className="flex flex-col text-purple-500 justify-center h-ful">
+            <div className="flex flex-col font-bold text-purple-700 justify-center h-ful">
                 <div>
                     {user.firstName} {user.lastName}
                 </div>
